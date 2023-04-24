@@ -29,7 +29,7 @@ include 'functions.php';
         //si mec connecté alors on recup toutes ses infos en bdd
         if (isset($_SESSION['nom_utilisateur'])) {
             $connectPseudo = $_SESSION['nom_utilisateur'];
-            $requete = "SELECT `id` FROM user WHERE `nom` = '" . $connectPseudo . "';";
+            $requete = "SELECT `ID` FROM User WHERE `Nom` = '" . $connectPseudo . "';";
             $result = $GLOBALS["pdo"]->query($requete);
             if ($result != false) {
                 echo 'la requete fonctionne ';
@@ -48,7 +48,7 @@ include 'functions.php';
                 $u1 = new User(NULL, $user, $plage, $color);
 
                 $u1->CreateUser($user, $plage, $color);
-                $requete = "SELECT `id` FROM user WHERE `nom` = '" . $user . "';";
+                $requete = "SELECT `ID` FROM User WHERE `Nom` = '" . $user . "';";
                 $resultId = $GLOBALS["pdo"]->query($requete);
                 if ($resultId->rowCount() > 0) {
                     $UserId = $resultId->fetch();
@@ -74,5 +74,6 @@ include 'functions.php';
 
 </body>
 <script src="main.js"></script>
+<script src="api.js"></script>
 
 </html>

@@ -1,9 +1,9 @@
 <?php
 //connexion BDD chez moi
-$ipserver = "localhost";
-$nomBase = "doodle";
-$loginPrivilege = "root";
-$passPrivilege = "";
+$ipserver = "192.168.1.79";
+$nomBase = "PepperMint_Planner";
+$loginPrivilege = "rootWP";
+$passPrivilege = "rootWP";
 
 $GLOBALS["pdo"] = new PDO('mysql:host=' . $ipserver . ';dbname=' . $nomBase . '', $loginPrivilege, $passPrivilege);
 /* 

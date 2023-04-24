@@ -25,7 +25,7 @@ include 'functions.php';
 
     if (isset($_SESSION['nom_utilisateur'])) {
         $connectPseudo = $_SESSION['nom_utilisateur'];
-        $requete = "SELECT `id` FROM user WHERE `nom` = '" . $connectPseudo . "';";
+        $requete = "SELECT `ID` FROM User WHERE `Nom` = '" . $connectPseudo . "';";
         $result = $GLOBALS["pdo"]->query($requete);
         if ($result != false) {
             echo 'la requete fonctionne ';
@@ -44,14 +44,22 @@ include 'functions.php';
             $u1 = new User(NULL, $user, $plage, $color);
 
             $u1->CreateUser($user, $plage, $color);
-            $requete = "SELECT `id` FROM user WHERE `nom` = '" . $user . "';";
+            $requete = "SELECT `ID` FROM User WHERE `Nom` = '" . $user . "';";
             $resultId = $GLOBALS["pdo"]->query($requete);
             if ($resultId->rowCount() > 0) {
                 $UserId = $resultId->fetch();
                 $_SESSION['id'] = $UserId[0];
             }
+
         }
+
+        
+
     }
+
+
+
+
     //si mec connecté et qu'il a son id dans la session on recup son id pour recup ses infos
     if (isset($_SESSION['nom_utilisateur']) && isset($_SESSION['id'])) {
         $id = $_SESSION['id'];
@@ -74,7 +82,8 @@ include 'functions.php';
         formDeco();
         //$url = coucou();
         //echo $url;
-    
+        $req = "INSERT INTO `Planner`(`Semaine`,'IDUSER','Hash') VALUES ('".$_POST['numSemaine']."','".$_SESSION['id']."','".$_GET['hash']."'";
+        $GLOBALS["pdo"]->query($req);
     ?>
         <script>
             const timestamp = new Date().getTime();
@@ -92,7 +101,7 @@ include 'functions.php';
             var pseudo = <?php echo json_encode($_SESSION['nom_utilisateur']); ?>;
         </script>
         <h1>Calendrier hebdomadaire</h1>
-        <h2>Semaine n° <?php echo $_POST['numSemaine'];?></h2>
+        <h2>Semaine n° <div id="Semaine"><?php echo $_POST['numSemaine'];?></div></h2>
         <table>
             <tr>
                 <th>Pepper'Mint Planning</th>
@@ -147,7 +156,7 @@ include 'functions.php';
         </table>
         <br>
 
-        <input type="submit" name="soumettre" value="soumettre" onclick="recupCreneau();">
+        <input type="submit" name="soumettre" value="soumettre" onclick="appelAPI()">
 
     <?php
     }
@@ -155,5 +164,6 @@ include 'functions.php';
 </body>
 
 <script src="main.js"></script>
+<script src="api.js"></script>
 
 </html>
